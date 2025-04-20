@@ -43,7 +43,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-.checkbox-group {
+.checkbox-group, .radio-group {
     margin-bottom: 15px;
 }
 
@@ -54,7 +54,7 @@ label {
     color: #34495e;
 }
 
-.checkbox-group label {
+.checkbox-group label, .radio-group label {
     font-weight: normal;
     display: flex;
     align-items: center;
@@ -78,7 +78,7 @@ textarea {
     font-family: Arial, sans-serif;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
     margin-right: 10px;
     transform: scale(1.2);
 }
@@ -108,7 +108,16 @@ button:hover {
     background-color: #2980b9;
 }
 
-#resultContainer {
+.form-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.form-buttons button {
+    width: 50%;
+}
+
+#resultContainer, #emailContainer {
     margin-top: 30px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -116,7 +125,7 @@ button:hover {
     border: 1px solid #ddd;
 }
 
-#templateOutput {
+#templateOutput, #emailOutput {
     background-color: #fff;
     padding: 15px;
     border: 1px solid #ddd;
@@ -130,13 +139,13 @@ button:hover {
     display: none;
 }
 
-#copyButton {
+#copyButton, #copyEmailButton {
     background-color: #2ecc71;
     width: auto;
     margin-top: 10px;
 }
 
-#copyButton:hover {
+#copyButton:hover, #copyEmailButton:hover {
     background-color: #27ae60;
 }
 

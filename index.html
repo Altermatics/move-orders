@@ -84,6 +84,20 @@
                             <input type="checkbox" id="engineerAttending" name="engineerAttending">
                             Will an engineer be attending?
                         </label>
+                        <div class="conditional-group" id="engineerTimeSlotGroup">
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" id="engineerAM" name="engineerTimeSlot" value="AM">
+                                    AM Slot (8:00 - 13:00)
+                                </label>
+                            </div>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" id="engineerPM" name="engineerTimeSlot" value="PM">
+                                    PM Slot (13:00 - 18:00)
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -120,17 +134,17 @@
                         <input type="checkbox" id="newRouter" name="newRouter">
                         Are they receiving a new router?
                     </label>
-                    <div class="conditional-group" id="techSwapGroup">
+                </div>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="techSwap" name="techSwap">
+                        Is a tech swap needed?
+                    </label>
+                    <div class="conditional-group" id="techSwapDoneGroup">
                         <label>
-                            <input type="checkbox" id="techSwap" name="techSwap">
-                            Do they want a tech swap?
+                            <input type="checkbox" id="techSwapDone" name="techSwapDone">
+                            Is the tech swap done?
                         </label>
-                        <div class="conditional-group" id="techSwapDoneGroup">
-                            <label>
-                                <input type="checkbox" id="techSwapDone" name="techSwapDone">
-                                Is the tech swap done?
-                            </label>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -164,6 +178,12 @@
                         <input type="checkbox" id="zenEmail" name="zenEmail">
                         Do they have a Zen email address?
                     </label>
+                    <div class="conditional-group" id="keepEmailGroup">
+                        <label>
+                            <input type="checkbox" id="keepEmail" name="keepEmail">
+                            Do they want to keep their username & IP address?
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="checkbox-group">
@@ -180,13 +200,22 @@
                 </div>
             </div>
             
-            <button type="button" id="generateButton">Generate Move Order Template</button>
+            <div class="form-buttons">
+                <button type="button" id="generateButton">Generate Move Order Template</button>
+                <button type="button" id="generateEmailButton">Generate Customer Email</button>
+            </div>
         </form>
         
         <div id="resultContainer" class="hidden">
             <h2>Move Order Template</h2>
             <div id="templateOutput"></div>
             <button id="copyButton">Copy to Clipboard</button>
+        </div>
+        
+        <div id="emailContainer" class="hidden">
+            <h2>Customer Email</h2>
+            <div id="emailOutput"></div>
+            <button id="copyEmailButton">Copy Email to Clipboard</button>
         </div>
     </div>
     
