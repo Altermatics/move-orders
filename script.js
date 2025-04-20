@@ -25,15 +25,38 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('cancelContractDoneGroup').style.display = this.checked ? 'block' : 'none';
         });
         
-        // Cancel date "is it done" field - always show when a date is selected
+        // Cancel date "is it done" field - show when a date is selected or TBC/when service live is checked
         document.getElementById('cancelDate').addEventListener('change', function() {
-            document.getElementById('cancelDateDoneGroup').style.display = this.value ? 'block' : 'none';
+            updateCancelDateDoneGroup();
+        });
+        
+        // TBC checkbox handling
+        document.getElementById('cancelDateTBC').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('cancelDate').value = '';
+                document.getElementById('cancelDate').disabled = true;
+                document.getElementById('cancelWhenServiceLive').checked = false;
+            } else {
+                document.getElementById('cancelDate').disabled = false;
+            }
+            updateCancelDateDoneGroup();
+        });
+        
+        // When service live checkbox handling
+        document.getElementById('cancelWhenServiceLive').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('cancelDate').value = '';
+                document.getElementById('cancelDate').disabled = true;
+                document.getElementById('cancelDateTBC').checked = false;
+            } else {
+                document.getElementById('cancelDate').disabled = false;
+            }
+            updateCancelDateDoneGroup();
         });
         
         // Router and tech swap conditional fields
         document.getElementById('newRouter').addEventListener('change', function() {
             document.getElementById('techSwapGroup').style.display = this.checked ? 'block' : 'none';
-            document.getElementById('newRouterDoneGroup').style.display = this.checked ? 'block' : 'none';
             if (!this.checked) {
                 document.getElementById('techSwapDoneGroup').style.display = 'none';
             }
@@ -58,12 +81,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    function updateCancelDateDoneGroup() {
+        const hasDate = document.getElementById('cancelDate').value;
+        const isTBC = document.getElementById('cancelDateTBC').checked;
+        const isWhenServiceLive = document.getElementById('cancelWhenServiceLive').checked;
+        
+        document.getElementById('cancelDateDoneGroup').style.display = 
+            (hasDate || isTBC || isWhenServiceLive) ? 'block' : 'none';
+    }
+    
     function generateMoveOrderTemplate() {
         // Get all form values
+        const oldAddress = document.getElementById('oldAddress').value;
+        const newAddress = document.getElementById('newAddress').value;
         const oldSOID = document.getElementById('oldSOID').value;
         const newSOID = document.getElementById('newSOID').value;
-        const casesLinkedText = document.getElementById('casesLinkedText').value;
         const internalMove = document.getElementById('internalMove').checked;
+        const billingAddressUpdated = document.getElementById('billingAddressUpdated').checked;
         
         // Contract
         const cancelContract = document.getElementById('cancelContract').checked;
@@ -71,12 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Dates
         const cancelDate = document.getElementById('cancelDate').value;
+        const cancelDateTBC = document.getElementById('cancelDateTBC').checked;
+        const cancelWhenServiceLive = document.getElementById('cancelWhenServiceLive').checked;
         const cancelDateDone = document.getElementById('cancelDateDone').checked;
         const newServiceDate = document.getElementById('newServiceDate').value;
+        const engineerAttending = document.getElementById('engineerAttending').checked;
         
         // Router
         const newRouter = document.getElementById('newRouter').checked;
-        const newRouterDone = document.getElementById('newRouterDone').checked;
         const techSwap = document.getElementById('techSwap').checked;
         const techSwapDone = document.getElementById('techSwapDone').checked;
         
@@ -91,17 +127,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const etcWaiverDone = document.getElementById('etcWaiverDone').checked;
         
         // Format the dates
-        const formattedCancelDate = formatDate(cancelDate);
+        let cancelDateText;
+        if (cancelWhenServiceLive) {
+            cancelDateText = 'When new service is live';
+        } else if (cancelDateTBC) {
+            cancelDateText = 'TBC'; 
+        } else {
+            cancelDateText = formatDate(cancelDate);
+        }
+        
         const formattedNewServiceDate = formatDate(newServiceDate);
         
         // Generate template
         let template = `*****MOVE ORDER*****
+Old Address: ${oldAddress}
+New Address: ${newAddress}
 Has contract been removed: ${cancelContract ? 'YES' : 'N/A'} - ${cancelContract ? (cancelContractDone ? 'DONE' : 'NOT DONE') : 'N/A'}
-Date to cancel old Services: ${formattedCancelDate} - ${cancelDateDone ? 'DONE' : 'NOT DONE'}
+Date to cancel old Services: ${cancelDateText} - ${cancelDateDone ? 'DONE' : 'NOT DONE'}
 Transfer of tech: ${techSwap ? 'YES' : 'NO'} ${techSwap ? (techSwapDone ? 'DONE' : 'NOT DONE') : ''}
 Does the user have a Zen email: ${zenEmail ? 'YES' : 'NO'}
-Update billing address: ${internalMove ? 'INTERNAL MOVE' : 'YES'}
+Update billing address: ${billingAddressUpdated ? 'YES' : (internalMove ? 'INTERNAL MOVE' : 'NO')}
 New service is live on: ${formattedNewServiceDate}
+Engineer attending: ${engineerAttending ? 'YES' : 'NO'}
 Copper Renumber order: N/A
 Copper Renumber to be placed on: N/A
 Copper Renumber to complete on: N/A

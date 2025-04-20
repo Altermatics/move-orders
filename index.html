@@ -14,6 +14,16 @@
             <div class="form-section">
                 <h2>Address Information</h2>
                 <div class="form-group">
+                    <label for="oldAddress">What is the old address?</label>
+                    <textarea id="oldAddress" name="oldAddress" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newAddress">What is the new address?</label>
+                    <textarea id="newAddress" name="newAddress" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
                     <label for="oldSOID">What is the SOID for the old address?</label>
                     <input type="number" id="oldSOID" name="oldSOID" required>
                 </div>
@@ -21,11 +31,6 @@
                 <div class="form-group">
                     <label for="newSOID">What is the SOID for the new address?</label>
                     <input type="number" id="newSOID" name="newSOID" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="casesLinkedText">Are the cases linked?</label>
-                    <input type="text" id="casesLinkedText" name="casesLinkedText" placeholder="Enter case details">
                 </div>
             </div>
             
@@ -60,6 +65,13 @@
                         </label>
                     </div>
                 </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="billingAddressUpdated" name="billingAddressUpdated">
+                        Has the billing address been updated?
+                    </label>
+                </div>
             </div>
             
             <div class="form-section">
@@ -67,11 +79,31 @@
                 <div class="form-group">
                     <label for="newServiceDate">When does the new service go live?</label>
                     <input type="date" id="newServiceDate" name="newServiceDate" required>
+                    <div class="checkbox-group engineer-attending">
+                        <label>
+                            <input type="checkbox" id="engineerAttending" name="engineerAttending">
+                            Will an engineer be attending?
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="cancelDate">When do they want to cancel?</label>
-                    <input type="date" id="cancelDate" name="cancelDate" required>
+                    <div class="date-options">
+                        <input type="date" id="cancelDate" name="cancelDate">
+                        <div class="checkbox-group tbc-option">
+                            <label>
+                                <input type="checkbox" id="cancelDateTBC" name="cancelDateTBC">
+                                TBC
+                            </label>
+                        </div>
+                        <div class="checkbox-group service-live-option">
+                            <label>
+                                <input type="checkbox" id="cancelWhenServiceLive" name="cancelWhenServiceLive">
+                                When new service is live
+                            </label>
+                        </div>
+                    </div>
                     <div class="conditional-group" id="cancelDateDoneGroup">
                         <label>
                             <input type="checkbox" id="cancelDateDone" name="cancelDateDone">
@@ -99,12 +131,6 @@
                                 Is the tech swap done?
                             </label>
                         </div>
-                    </div>
-                    <div class="conditional-group" id="newRouterDoneGroup">
-                        <label>
-                            <input type="checkbox" id="newRouterDone" name="newRouterDone">
-                            Is it done?
-                        </label>
                     </div>
                 </div>
             </div>
