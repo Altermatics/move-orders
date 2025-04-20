@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Move Order Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Address Move Order Form</h1>
+        
+        <form id="moveOrderForm">
+            <div class="form-section">
+                <h2>Address Information</h2>
+                <div class="form-group">
+                    <label for="oldSOID">What is the SOID for the old address?</label>
+                    <input type="number" id="oldSOID" name="oldSOID" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newSOID">What is the SOID for the new address?</label>
+                    <input type="number" id="newSOID" name="newSOID" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="casesLinkedText">Are the cases linked?</label>
+                    <input type="text" id="casesLinkedText" name="casesLinkedText" placeholder="Enter case details">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Move Details</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="internalMove" name="internalMove">
+                        Is this an internal move?
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Contract Information</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="lessThan6Months" name="lessThan6Months">
+                        Have they been in contract less than 6 months?
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="cancelContract" name="cancelContract">
+                        Does the contract need to be cancelled?
+                    </label>
+                    <div class="conditional-group" id="cancelContractDoneGroup">
+                        <label>
+                            <input type="checkbox" id="cancelContractDone" name="cancelContractDone">
+                            Is it done?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Service Dates</h2>
+                <div class="form-group">
+                    <label for="newServiceDate">When does the new service go live?</label>
+                    <input type="date" id="newServiceDate" name="newServiceDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cancelDate">When do they want to cancel?</label>
+                    <input type="date" id="cancelDate" name="cancelDate" required>
+                    <div class="conditional-group" id="cancelDateDoneGroup">
+                        <label>
+                            <input type="checkbox" id="cancelDateDone" name="cancelDateDone">
+                            Is it done?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Router Information</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="newRouter" name="newRouter">
+                        Are they receiving a new router?
+                    </label>
+                    <div class="conditional-group" id="techSwapGroup">
+                        <label>
+                            <input type="checkbox" id="techSwap" name="techSwap">
+                            Do they want a tech swap?
+                        </label>
+                        <div class="conditional-group" id="techSwapDoneGroup">
+                            <label>
+                                <input type="checkbox" id="techSwapDone" name="techSwapDone">
+                                Is the tech swap done?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="conditional-group" id="newRouterDoneGroup">
+                        <label>
+                            <input type="checkbox" id="newRouterDone" name="newRouterDone">
+                            Is it done?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Digital Voice</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="digitalVoice" name="digitalVoice">
+                        Do they have digital voice?
+                    </label>
+                    <div class="conditional-group" id="premiseMoveGroup">
+                        <label>
+                            <input type="checkbox" id="premiseMove" name="premiseMove">
+                            If they have digital voice, have you done a premise move?
+                        </label>
+                        <div class="conditional-group" id="premiseMoveDoneGroup">
+                            <label>
+                                <input type="checkbox" id="premiseMoveDone" name="premiseMoveDone">
+                                Is it done?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Email and ETCs</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="zenEmail" name="zenEmail">
+                        Do they have a Zen email address?
+                    </label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="etcWaiver" name="etcWaiver">
+                        Are ETCs being waivered?
+                    </label>
+                    <div class="conditional-group" id="etcWaiverDoneGroup">
+                        <label>
+                            <input type="checkbox" id="etcWaiverDone" name="etcWaiverDone">
+                            Is it done?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="generateButton">Generate Move Order Template</button>
+        </form>
+        
+        <div id="resultContainer" class="hidden">
+            <h2>Move Order Template</h2>
+            <div id="templateOutput"></div>
+            <button id="copyButton">Copy to Clipboard</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
